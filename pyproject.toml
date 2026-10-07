@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ddexpipe"
+version = "1.0.0"
+description = "Pipeline em camadas para declarações DDEX com Spark e Apache Iceberg"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = { text = "MIT" }
+authors = [{ name = "Bruno Maia" }]
+# o runtime do Iceberg vem pelo spark.jars.packages (ver spark.py)
+dependencies = ["pyspark==4.0.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+ddexpipe = "ddexpipe.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["spark: testes que sobem uma sessão Spark local com Iceberg (precisam de Java 17)"]
